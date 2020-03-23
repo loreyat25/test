@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Alias="Self" Namespace="EFLandenStedenTalenModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012">
+  <EntityType Name="Landen">
+    <Key>
+      <PropertyRef Name="LandCode" />
+    </Key>
+    <Property Name="LandCode" Nullable="false" MaxLength="3" Type="nvarchar" />
+    <Property Name="Naam" Nullable="false" MaxLength="50" Type="nvarchar" />
+  </EntityType>
+  <EntityType Name="LandenTalen">
+    <Key>
+      <PropertyRef Name="LandCode" />
+      <PropertyRef Name="TaalCode" />
+    </Key>
+    <Property Name="LandCode" Nullable="false" MaxLength="3" Type="nvarchar" />
+    <Property Name="TaalCode" Nullable="false" MaxLength="3" Type="nvarchar" />
+  </EntityType>
+  <EntityType Name="Steden">
+    <Key>
+      <PropertyRef Name="StadNr" />
+    </Key>
+    <Property Name="StadNr" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+    <Property Name="Naam" Nullable="false" MaxLength="50" Type="nvarchar" />
+    <Property Name="LandCode" Nullable="false" MaxLength="3" Type="nvarchar" />
+  </EntityType>
+  <EntityType Name="Talen">
+    <Key>
+      <PropertyRef Name="TaalCode" />
+    </Key>
+    <Property Name="TaalCode" Nullable="false" MaxLength="3" Type="nvarchar" />
+    <Property Name="Naam" Nullable="false" MaxLength="50" Type="nvarchar" />
+  </EntityType>
+  <Association Name="FK__LandenTal__LandC__2B3F6F97">
+    <End Type="Self.Landen" Multiplicity="1" Role="Landen" />
+    <End Type="Self.LandenTalen" Multiplicity="*" Role="LandenTalen" />
+    <ReferentialConstraint>
+      <Principal Role="Landen">
+        <PropertyRef Name="LandCode" />
+      </Principal>
+      <Dependent Role="LandenTalen">
+        <PropertyRef Name="LandCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LandenTal__TaalC__2C3393D0">
+    <End Type="Self.Talen" Multiplicity="1" Role="Talen" />
+    <End Type="Self.LandenTalen" Multiplicity="*" Role="LandenTalen" />
+    <ReferentialConstraint>
+      <Principal Role="Talen">
+        <PropertyRef Name="TaalCode" />
+      </Principal>
+      <Dependent Role="LandenTalen">
+        <PropertyRef Name="TaalCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Steden__LandCode__267ABA7A">
+    <End Type="Self.Landen" Multiplicity="1" Role="Landen" />
+    <End Type="Self.Steden" Multiplicity="*" Role="Steden" />
+    <ReferentialConstraint>
+      <Principal Role="Landen">
+        <PropertyRef Name="LandCode" />
+      </Principal>
+      <Dependent Role="Steden">
+        <PropertyRef Name="LandCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EFLandenStedenTalenModelStoreContainer">
+    <EntitySet Name="Landen" EntityType="Self.Landen" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LandenTalen" EntityType="Self.LandenTalen" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Steden" EntityType="Self.Steden" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Talen" EntityType="Self.Talen" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__LandenTal__LandC__2B3F6F97" Association="Self.FK__LandenTal__LandC__2B3F6F97">
+      <End EntitySet="Landen" Role="Landen" />
+      <End EntitySet="LandenTalen" Role="LandenTalen" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LandenTal__TaalC__2C3393D0" Association="Self.FK__LandenTal__TaalC__2C3393D0">
+      <End EntitySet="Talen" Role="Talen" />
+      <End EntitySet="LandenTalen" Role="LandenTalen" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Steden__LandCode__267ABA7A" Association="Self.FK__Steden__LandCode__267ABA7A">
+      <End EntitySet="Landen" Role="Landen" />
+      <End EntitySet="Steden" Role="Steden" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
